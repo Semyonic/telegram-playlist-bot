@@ -1,4 +1,4 @@
-# semyonic-telegram-bot [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d88e992469eb477bbf6521e8af5ad0d0)](https://www.codacy.com/app/semih.onay/telegram-playlist-bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Semyonic/telegram-playlist-bot&amp;utm_campaign=Badge_Grade)
+# telegram-playlist-bot [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d88e992469eb477bbf6521e8af5ad0d0)](https://www.codacy.com/app/semih.onay/telegram-playlist-bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Semyonic/telegram-playlist-bot&amp;utm_campaign=Badge_Grade)
 
 It was a toy project to share playlist changes to my friends following playlists.
 
