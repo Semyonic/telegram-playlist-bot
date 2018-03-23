@@ -112,7 +112,6 @@ setInterval(() => {
 
       request.get(options, (err, resp) => {
         if (err) return err
-
         PlayListSnap.findOne({snapshot_id: resp.body.snapshot_id}, (error, result) => {
           if (error) return error
           if (result === null) {
@@ -123,6 +122,8 @@ setInterval(() => {
             })
             getTracks()
           }
+        }).catch((error) => {
+          console.error(error)
         })
       })
     } else if (response.statusCode === 429) {
@@ -135,6 +136,7 @@ setInterval(() => {
 /**
  * Gets,sorts and sends tracks to Telegram users
  */
+
 const getTracks = () => {
   request.post(authOptions, (error, response, body) => {
     if (!error && response.statusCode === 200) {
@@ -148,15 +150,25 @@ const getTracks = () => {
       }
 
       request.get(options, (err, resp) => {
-        if (err) return err
-        let sorted = _.sortBy(resp.body.items, ['added_at'])
-        let ordered = _.orderBy(sorted, ['added_at'], ['asc'])
-        let track = JSON.stringify(ordered[ordered.length - 1].track.external_urls.spotify)
-        User.find({}, {userId: 1, _id: 0}, (err, users) => {
-          users.forEach((user) => {
-            bot.sendMessage(user.userId, 'Listeye yeni parça eklendi ! \n \n' + track)
-          })
-        })
+        if (err) {
+          console.error(err)
+        }
+        if (resp.body.items.length !== 0) {
+          let sorted = _.sortBy(resp.body.items, ['added_at'])
+          let ordered = _.orderBy(sorted, ['added_at'], ['asc'])
+          if (!ordered[ordered.length - 1] !== undefined) {
+            let track = JSON.stringify(ordered[ordered.length - 1].track.external_urls.spotify)
+            User.find({}, {userId: 1, _id: 0}, (err, users) => {
+              if (err) {
+                bot.sendMessage(process.env.TELEGRAM_ADMIN_ID, JSON.stringify(err))
+                return err
+              }
+              users.forEach((user) => {
+                bot.sendMessage(user.userId, 'Listeye yeni parça eklendi ! \n \n' + track)
+              })
+            })
+          }
+        }
       })
     }
   })
@@ -201,6 +213,7 @@ app.use((err, req, res) => {
 
 // Handle uncaughtException
 process.on('uncaughtException', (err) => {
+  console.error(err)
   // Send errors to Telegram Admin then crash
   bot.sendMessage(process.env.TELEGRAM_ADMIN_ID, JSON.stringify(err))
   process.exit(1)

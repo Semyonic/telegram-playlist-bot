@@ -5,4 +5,4 @@ const PlayListSnapShots = new mongoose.Schema({
   date: { type: Date, default: new Date().toLocaleString() }
 })
 
-module.export = mongoose.model('SnapShots', PlayListSnapShots)
+module.exports = mongoose.model('SnapShots', PlayListSnapShots)
