@@ -14,7 +14,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
-    "debug": "^3.0.0",
+    "debug": "^4.0.1",
     "dotenv": "^5.0.1",
     "express": "^4.15.4",
     "lodash": "^4.17.10",
